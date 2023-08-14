@@ -10,4 +10,6 @@ public interface CalculadoraGateway {
 
     Mono<Void> sumarYguardarResultados(Resultado resultado);
 
+    Mono<Void> eliminarPorValor(int valor);
+
 }

@@ -28,6 +28,10 @@ public class CalculadoraUseCase {
         return resultadosGateway.sumarYguardarResultados(resultado);
     }
 
+    public Mono<Void>  eliminarPorValor(int valor) {
+        return resultadosGateway.eliminarPorValor(valor);
+    }
+
 
 
 }

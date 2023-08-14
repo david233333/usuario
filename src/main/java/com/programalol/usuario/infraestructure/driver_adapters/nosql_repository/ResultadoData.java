@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "operations")
+@Document(collection = "Resultados")
 public class ResultadoData {
     @Id
     private String id;
