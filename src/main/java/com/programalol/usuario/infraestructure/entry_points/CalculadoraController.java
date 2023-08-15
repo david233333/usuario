@@ -1,7 +1,7 @@
 package com.programalol.usuario.infraestructure.entry_points;
 
 
-import com.programalol.usuario.domain.model.CalculadoraRequest;
+import com.programalol.usuario.domain.model.ResultadoRequest;
 import com.programalol.usuario.domain.model.Resultado;
 import com.programalol.usuario.domain.usecase.CalculadoraUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +18,18 @@ public class CalculadoraController {
     private CalculadoraUseCase calculadoraUseCase;
 
     @GetMapping("/resultados")
-    public Flux<Resultado> consultarProgramas() {
+    public Flux<Resultado> consultarResultados() {
         return calculadoraUseCase.consultarResultados();
     }
 
     @PostMapping("/suma")
-    public Mono<Void> suma(@RequestBody CalculadoraRequest request) {
-        return calculadoraUseCase.suma(request.getValor1(), request.getValor2());
+    public Mono<Void> sumar(@RequestBody ResultadoRequest request) {
+        return calculadoraUseCase.guardarResultado(request.getValor1(), request.getValor2());
     }
 
-    @DeleteMapping("/eliminar/{valor}")
-    public Mono<Void> eliminarPorValor(@PathVariable int valor) {
-      return calculadoraUseCase.eliminarPorValor(valor);
+    @DeleteMapping("/resultado/{valor}")
+    public Mono<Void> eliminarResultadoPorValor(@PathVariable double valor) {
+      return calculadoraUseCase.eliminarResultadoPorValor(valor);
 
     }
 }

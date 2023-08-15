@@ -8,8 +8,8 @@ public interface CalculadoraGateway {
 
     Flux<Resultado> consultarResultados();
 
-    Mono<Void> sumarYguardarResultados(Resultado resultado);
+    Mono<Void> guardarResultado(Resultado resultado);
 
-    Mono<Void> eliminarPorValor(int valor);
+    Mono<Void> eliminarResultadoPorValor(double valor);
 
 }

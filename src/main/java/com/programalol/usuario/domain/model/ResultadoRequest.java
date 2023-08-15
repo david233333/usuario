@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CalculadoraRequest {
+public class ResultadoRequest {
 
     private int valor1;
     private int valor2;

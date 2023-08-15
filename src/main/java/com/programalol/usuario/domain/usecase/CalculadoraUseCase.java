@@ -6,10 +6,14 @@ import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+
+
 import java.util.Date;
 
 @RequiredArgsConstructor
 public class CalculadoraUseCase {
+
+
 
     private final CalculadoraGateway resultadosGateway;
 
@@ -17,20 +21,20 @@ public class CalculadoraUseCase {
         return resultadosGateway.consultarResultados();
     }
 
-    public Mono<Void> suma(int operand1, int operand2) {
-        int suma = operand1 + operand2;
+    public Mono<Void> guardarResultado(double operand1, double operand2) {
+        double suma = operand1 + operand2;
         Resultado resultado = new Resultado();
         resultado.setValor1(operand1);
         resultado.setValor2(operand2);
         resultado.setResultado(suma);
         resultado.setFechaOperacion(new Date());
-
-        return resultadosGateway.sumarYguardarResultados(resultado);
+        return resultadosGateway.guardarResultado(resultado);
     }
 
-    public Mono<Void>  eliminarPorValor(int valor) {
-        return resultadosGateway.eliminarPorValor(valor);
+    public Mono<Void>  eliminarResultadoPorValor(double valor) {
+        return resultadosGateway.eliminarResultadoPorValor(valor);
     }
+
 
 
 

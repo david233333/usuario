@@ -15,9 +15,9 @@ import java.util.Date;
 public class ResultadoData {
     @Id
     private String id;
-    private int valor1;
-    private int valor2;
-    private int resultado;
+    private double valor1;
+    private double valor2;
+    private double resultado;
     private Date fechaOperacion;
 
 }

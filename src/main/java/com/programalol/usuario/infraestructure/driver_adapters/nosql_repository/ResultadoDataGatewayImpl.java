@@ -27,22 +27,20 @@ public class ResultadoDataGatewayImpl implements CalculadoraGateway, Job {
     }
 
     @Override
-    public Mono<Void> sumarYguardarResultados(Resultado resultado) {
+    public Mono<Void> guardarResultado(Resultado resultado) {
         return Mono.just(resultado).map(mapperResultado::toData)
                 .flatMap(resultadoDataRepository::save)
                 .then();
     }
 
     @Override
-    public Mono<Void> eliminarPorValor(int valor) {
+    public Mono<Void> eliminarResultadoPorValor(double valor) {
         return resultadoDataRepository.deleteByValor1(valor);
     }
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        // Este método se ejecuta cuando Quartz programa la tarea para ser ejecutada.
-        // El parámetro JobExecutionContext proporciona el contexto de ejecución de la tarea.
-
+        System.out.println("si entra");
         Date oneDayAgo = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
         resultadoDataRepository.deleteByFechaOperacionBefore(oneDayAgo).subscribe();
     }

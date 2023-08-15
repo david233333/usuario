@@ -12,6 +12,7 @@ java {
 }
 
 configurations {
+	jaxb
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
@@ -32,6 +33,13 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	implementation 'org.springframework.boot:spring-boot-starter-quartz'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'wsdl4j:wsdl4j'
+	jaxb("org.glassfish.jaxb:jaxb-xjc")
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.4'
+
+
 }
 
 
@@ -43,3 +51,35 @@ bootJar {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task genJaxb {
+	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+	ext.schema = "src/main/resources/calculadora.xsd"
+
+	outputs.dir sourcesDir
+
+	doLast() {
+		project.ant {
+			taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+					classpath: configurations.jaxb.asPath
+			mkdir(dir: sourcesDir)
+
+			xjc(destdir: sourcesDir, schema: schema) {
+				arg(value: "-wsdl")
+				produces(dir: sourcesDir, includes: "**/*.java")
+			}
+		}
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir "${buildDir.absolutePath}/generated/source/kapt/main"
+		}
+	}
+}
+
+compileJava.dependsOn genJaxb
+
+
