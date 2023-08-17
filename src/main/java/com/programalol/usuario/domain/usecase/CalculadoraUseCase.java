@@ -1,6 +1,7 @@
 package com.programalol.usuario.domain.usecase;
 
 import com.programalol.usuario.domain.model.Resultado;
+import com.programalol.usuario.domain.model.excepciones.ResultadoNotFoundException;
 import com.programalol.usuario.domain.model.gateways.CalculadoraGateway;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
@@ -14,22 +15,33 @@ import java.util.Date;
 public class CalculadoraUseCase {
 
 
-
     private final CalculadoraGateway resultadosGateway;
 
     public Flux<Resultado> consultarResultados() {
-        return resultadosGateway.consultarResultados();
+        return resultadosGateway.consultarResultados()
+                .switchIfEmpty(Mono.error(new ResultadoNotFoundException("Resultados no encontrado")));
     }
 
-    public Mono<Void> guardarResultado(double operand1, double operand2) {
+    public Flux<Resultado> consultarResultadosPorFechas(Date fechaInicio, Date fechaFin) {
+        return resultadosGateway.consultarResultadosPorFechas(fechaInicio,fechaFin)
+                .switchIfEmpty(Mono.error(new ResultadoNotFoundException("Resultados no encontrado")));
+    }
+
+    public Mono<Void> guardarSuma(double operand1, double operand2) {
         double suma = operand1 + operand2;
-        Resultado resultado = new Resultado();
-        resultado.setValor1(operand1);
-        resultado.setValor2(operand2);
-        resultado.setResultado(suma);
-        resultado.setFechaOperacion(new Date());
+        Resultado resultado = crearResultado(operand1, operand2, suma);
         return resultadosGateway.guardarResultado(resultado);
     }
+
+    private Resultado crearResultado(double valor1, double valor2, double resultado) {
+        Resultado resultadoObj = new Resultado();
+        resultadoObj.setValor1(valor1);
+        resultadoObj.setValor2(valor2);
+        resultadoObj.setResultado(resultado);
+        resultadoObj.setFechaOperacion(new Date());
+        return resultadoObj;
+    }
+
 
     public Mono<Void>  eliminarResultadoPorValor(double valor) {
         return resultadosGateway.eliminarResultadoPorValor(valor);

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
+import java.sql.SQLOutput;
+
 @Repository
 @RequiredArgsConstructor
 public class SoapDataGatewayImpl implements SoapGateway {
@@ -15,7 +17,10 @@ public class SoapDataGatewayImpl implements SoapGateway {
     private final ResultadoDataRepository resultadoDataRepository;
 
     @Override
-    public void guardarResultado(Resultado resultado) {
-        resultadoDataRepository.deleteByValor1(resultado.getValor1());
+    public Mono<Void> guardarResultado(Resultado resultado) {
+        System.out.println("resultado"+resultado.getValor2());
+        return Mono.just(resultado).map(mapperResultado::toData)
+                .flatMap(resultadoDataRepository::save)
+                .then();
     }
 }

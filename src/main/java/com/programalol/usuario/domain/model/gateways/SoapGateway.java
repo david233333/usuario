@@ -5,5 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface SoapGateway {
 
-    void guardarResultado(Resultado resultado);
+    Mono<Void> guardarResultado(Resultado resultado);
 }

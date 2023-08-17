@@ -27,6 +27,12 @@ public class ResultadoDataGatewayImpl implements CalculadoraGateway, Job {
     }
 
     @Override
+    public Flux<Resultado> consultarResultadosPorFechas(Date fechaInicio, Date fechaFin) {
+        return resultadoDataRepository.findByFechaOperacionBetween(fechaInicio,fechaFin)
+                .map(mapperResultado::toResultado);
+    }
+
+    @Override
     public Mono<Void> guardarResultado(Resultado resultado) {
         return Mono.just(resultado).map(mapperResultado::toData)
                 .flatMap(resultadoDataRepository::save)
@@ -40,7 +46,7 @@ public class ResultadoDataGatewayImpl implements CalculadoraGateway, Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        System.out.println("si entra");
+        System.out.println("si ingresa");
         Date oneDayAgo = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
         resultadoDataRepository.deleteByFechaOperacionBefore(oneDayAgo).subscribe();
     }

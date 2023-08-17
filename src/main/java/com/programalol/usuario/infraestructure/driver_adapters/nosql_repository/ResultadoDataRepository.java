@@ -9,4 +9,5 @@ import java.util.Date;
 public interface ResultadoDataRepository extends ReactiveCrudRepository<ResultadoData, String> {
     Mono<Void> deleteByValor1(double valor1);
     Mono<Void> deleteByFechaOperacionBefore(Date fechaOperacion);
+    Flux<ResultadoData> findByFechaOperacionBetween(Date startDate, Date endDate);
 }

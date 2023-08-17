@@ -4,9 +4,13 @@ import com.programalol.usuario.domain.model.Resultado;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
+
 public interface CalculadoraGateway {
 
     Flux<Resultado> consultarResultados();
+
+    Flux<Resultado> consultarResultadosPorFechas(Date fechaInicio, Date fechaFin);
 
     Mono<Void> guardarResultado(Resultado resultado);
 
