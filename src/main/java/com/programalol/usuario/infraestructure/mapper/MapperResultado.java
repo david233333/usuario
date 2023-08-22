@@ -1,6 +1,6 @@
 package com.programalol.usuario.infraestructure.mapper;
 
-import com.programalol.usuario.domain.model.Resultado;
+import com.programalol.usuario.domain.model.entity.Resultado;
 import com.programalol.usuario.infraestructure.driver_adapters.nosql_repository.ResultadoData;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;

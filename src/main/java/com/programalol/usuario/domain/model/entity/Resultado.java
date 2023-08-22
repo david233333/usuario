@@ -1,4 +1,4 @@
-package com.programalol.usuario.domain.model;
+package com.programalol.usuario.domain.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

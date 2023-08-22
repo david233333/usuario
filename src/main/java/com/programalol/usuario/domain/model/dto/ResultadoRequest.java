@@ -1,4 +1,4 @@
-package com.programalol.usuario.domain.model;
+package com.programalol.usuario.domain.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResultadoRequest {
-
     private int valor1;
     private int valor2;
 }

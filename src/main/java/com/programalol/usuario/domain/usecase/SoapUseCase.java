@@ -1,7 +1,6 @@
 package com.programalol.usuario.domain.usecase;
 
-import com.programalol.usuario.domain.model.Resultado;
-import com.programalol.usuario.domain.model.gateways.CalculadoraGateway;
+import com.programalol.usuario.domain.model.entity.Resultado;
 import com.programalol.usuario.domain.model.gateways.SoapGateway;
 import lombok.RequiredArgsConstructor;
 
@@ -12,14 +11,19 @@ public class SoapUseCase {
 
     private final SoapGateway soapGateway;
 
-    public double guardarResultado(double valor1, double valor2) {
-        double resultado = valor1 + valor2;
-        Resultado resultado1 = new Resultado();
-        resultado1.setValor1(valor1);
-        resultado1.setValor2(valor2);
-        resultado1.setResultado(resultado);
-        resultado1.setFechaOperacion(new Date());
-        soapGateway.guardarResultado(resultado1);
-        return resultado;
+    public double guardarSuma(double valor1, double valor2) {
+        double suma = valor1 + valor2;
+        Resultado resultado = crearResultado(valor1, valor2, suma);
+        soapGateway.guardarResultado(resultado);
+        return suma;
+    }
+
+    private Resultado crearResultado(double valor1, double valor2, double resultado) {
+        Resultado resultadoObj = new Resultado();
+        resultadoObj.setValor1(valor1);
+        resultadoObj.setValor2(valor2);
+        resultadoObj.setResultado(resultado);
+        resultadoObj.setFechaOperacion(new Date());
+        return resultadoObj;
     }
 }

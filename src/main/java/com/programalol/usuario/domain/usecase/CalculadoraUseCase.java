@@ -1,6 +1,6 @@
 package com.programalol.usuario.domain.usecase;
 
-import com.programalol.usuario.domain.model.Resultado;
+import com.programalol.usuario.domain.model.entity.Resultado;
 import com.programalol.usuario.domain.model.excepciones.ResultadoNotFoundException;
 import com.programalol.usuario.domain.model.gateways.CalculadoraGateway;
 import lombok.RequiredArgsConstructor;

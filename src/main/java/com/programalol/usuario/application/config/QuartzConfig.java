@@ -13,17 +13,17 @@ public class QuartzConfig {
     @Bean
     public JobDetailFactoryBean jobDetail() {
         JobDetailFactoryBean factory = new JobDetailFactoryBean();
-        factory.setJobClass(ResultadoDataGatewayImpl.class);// Define la clase del trabajo a ejecutar
-        factory.setDurability(true);// Indica que el trabajo debe ser persistente incluso si no hay disparadores asociados
+        factory.setJobClass(ResultadoDataGatewayImpl.class);
+        factory.setDurability(true);
         return factory;
     }
 
     @Bean
     public SimpleTriggerFactoryBean trigger(JobDetail job) {
         SimpleTriggerFactoryBean factory = new SimpleTriggerFactoryBean();
-        factory.setJobDetail(job); // Asigna el trabajo que se ejecutará cuando el desencadenador se active
-        factory.setRepeatInterval(5000);  // Intervalo de repetición en milisegundos (5 segundos)
-        factory.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY);// Se repite indefinidamente
+        factory.setJobDetail(job);
+        factory.setRepeatInterval(5000);
+        factory.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY);
         return factory;
     }
 }

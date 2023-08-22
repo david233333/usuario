@@ -1,6 +1,6 @@
 package com.programalol.usuario.infraestructure.driver_adapters.nosql_repository;
 
-import com.programalol.usuario.domain.model.Resultado;
+import com.programalol.usuario.domain.model.entity.Resultado;
 import com.programalol.usuario.domain.model.gateways.CalculadoraGateway;
 import com.programalol.usuario.infraestructure.mapper.MapperResultado;
 import lombok.RequiredArgsConstructor;
@@ -46,9 +46,8 @@ public class ResultadoDataGatewayImpl implements CalculadoraGateway, Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        System.out.println("si ingresa");
-        Date oneDayAgo = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
-        resultadoDataRepository.deleteByFechaOperacionBefore(oneDayAgo).subscribe();
+        Date diaAnterior = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+        resultadoDataRepository.deleteByFechaOperacionBefore(diaAnterior).subscribe();
     }
 
 
